@@ -7,10 +7,15 @@ public class GamblingSimulator {
     private static final int stakeBetCost = 1;
     private static final int BET_WIN = 1;
     
+      
     //Array Variables for Win or Loose Count
     private static int[] winCountArr = new int[20];
     private static int[] looseCountArr = new int[20];
     private static String[] dayStatus = new String[20];
+    private static int[] luckyDays = new int[20];
+    private static int[] unluckyDays = new int[20];
+    private static int luckyDayCount = 0;
+    private static int unluckyDayCount = 0;
     
     //Random Class Object for Playing Status
     private static Random randamStatus = new Random();
@@ -45,22 +50,25 @@ public class GamblingSimulator {
 	            //Checking for the Winning Stack is 50% of PER DAY STACK
 	            if(winStack == stakeCost / 2) {
 	                //Adding Won Status for the Day
-	                dayStatus[i] = "Won";
+	                luckyDays[luckyDayCount] = i+1;
+	                luckyDayCount++;
 	                System.out.println("Win Stack is 50% of PER DAY STACK. So, Gambler Resigning for the DAY.");
 	                break;
 	            }
 	            //Checking for the Winning Stack is 50% of PER DAY STACK
-	            if(looseStack == stakeCost / 2) {
+	            if(looseStack == stakeCost	 / 2) {
 	                //Adding Lost Status for the Day
-	                dayStatus[i] = "Lost";
+	                unluckyDays[unluckyDayCount] = i+1;
+	                unluckyDayCount++;
 	                System.out.println("Loose Stack is 50% of PER DAY STACK. So, Gambler is Resigning for the DAY");
 	                break;
 	            }
 	        }
-		 //Win and Loose Counter Array Storing Values
+
+	        //Win and Loose Counter Array Storing Values
 	        winCountArr[i] = winCount;
 	        looseCountArr[i] = looseCount;
-  }
+	    }
 	
 
 	//Method to Print the Win and Loose Count for 20 Days
@@ -70,6 +78,18 @@ public class GamblingSimulator {
 	            System.out.println("Day "+ (i+1) +" Total Win Count :"+ winCountArr[i]);
 	            System.out.println("Day "+ (i+1) +" Total Loose Count :"+ looseCountArr[i]);
 	            
+	        }
+	    }
+	    
+	    //Method to check luckiest and unluckiest day
+	    private static void luckyUnluckyDay() {
+	        //Showing the Luckiest Days of Gambler
+	        for(int i = 0; i < luckyDayCount; i++) {
+	            System.out.println("Luckiest Day : "+luckyDays[i]);
+	        }
+	        //Showing the Unluckiest Days of Gambler
+	        for(int i = 0; i < unluckyDayCount; i++) {
+	            System.out.println("Unluckiest Day : "+unluckyDays[i]);
 	        }
 	    }
 
@@ -88,6 +108,9 @@ public static void main(String[] args) {
 
     //Method for Showing 20Days Win Loose Counter
       showWinLooseCount();
+      
+     //Method call for Checking the Luckiest and Unluckiest Days
+      luckyUnluckyDay();
   }
 
 }
