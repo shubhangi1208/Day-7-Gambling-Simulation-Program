@@ -16,6 +16,7 @@ public class GamblingSimulator {
     private static int[] unluckyDays = new int[20];
     private static int luckyDayCount = 0;
     private static int unluckyDayCount = 0;
+    private static String playChoice;
     
     //Random Class Object for Playing Status
     private static Random randamStatus = new Random();
@@ -93,24 +94,38 @@ public class GamblingSimulator {
 	        }
 	    }
 
-public static void main(String[] args) {
-    System.out.println("Welcome to Gambling Simulation Program.");
+	    public static void main(String[] args) {
+	        //Starting Message for User
+	        System.out.println("Welcome to Gambling Simulation Problem developed by Tahir Mansuri.");
 
-    //Shows the Initial Status of Gambler
-    showGamblerStatus();
+	        //Shows the Initial Status of Gambler
+	        showGamblerStatus();
 
-    //Starting the Game Play for a day
-    for(int i = 0; i < 20; i++) {
-        System.out.println("Day " + (i+1) + " Play Start.");
-        winOrLoss(i);
-        System.out.println("Day " + (i+1) + " Play End.");
-    }
+	        //Starting the Game Play for a day and Ask for Continue to next Month if Won
+	        do {
+	            for (int i = 0; i < 20; i++) {
+	                System.out.println("Day " + (i + 1) + " Play Start.");
+	                winOrLoss(i);
+	                System.out.println("Day " + (i + 1) + " Play End.");
+	            }
+	            //Method for Showing 20Days Win Loose Counter
+	            showWinLooseCount();
 
-    //Method for Showing 20Days Win Loose Counter
-      showWinLooseCount();
-      
-     //Method call for Checking the Luckiest and Unluckiest Days
-      luckyUnluckyDay();
-  }
+	            //Method call for Checking the Luckiest and Unluckiest Days
+	            luckyUnluckyDay();
+	            if(luckyDayCount > unluckyDayCount) {
+	                System.out.println("You have Won Maximum Days in this Month. \nSo, Do you want to continue ? (Y / N) :");
+	                Scanner sc = new Scanner(System.in);
+	                playChoice = sc.next();
+	                luckyDayCount = 0;
+	                unluckyDayCount = 0;
 
-}
+	            } else {
+	                System.out.println("You have Lost Many Times as compare to Wining Days. \nSo, Quit the Game.");
+	                break;
+	            }
+	        } while(playChoice.equalsIgnoreCase("Y") || playChoice.equalsIgnoreCase("y"));
+
+
+	    }
+	}
